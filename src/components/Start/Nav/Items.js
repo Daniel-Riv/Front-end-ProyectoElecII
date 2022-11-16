@@ -54,7 +54,6 @@ export const Items = ({ id, name, getMatters, setCustomAlert }) => {
             <ListItemText primary={name} />
             <DeleteIcon onClick={() => deleteMatter(id)} />
             <UpgradeIcon onClick={handleOpen} />
-            {/* <ListItemText secondary={'Lorem insert line Daniel RIVAS 123'}/> */}
           </Grid>
         </ListItemButton>
       </ListItem>

@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { Icon } from '../components/Start/Nav/Icon';
 
 import { Clayout } from '../components/Start/Layout/Clayout';
+import { StartA } from '../components/Activity/StartA';
 
 export const HomePages = () => {
 
@@ -28,6 +29,7 @@ export const HomePages = () => {
       matters={matters}
       getMatters={getMatters}
     >
+      <StartA />
       <Icon
         getMatters={getMatters}
       />
