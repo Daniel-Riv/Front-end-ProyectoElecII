@@ -9,8 +9,14 @@ import {
 import BookIcon from '@mui/icons-material/Book';
 import DeleteIcon from '@mui/icons-material/Delete';
 import UpgradeIcon from '@mui/icons-material/Upgrade';
+import { ModalUpdate } from '../../Matters/ModalUpdate';
 
 export const Items = ({ id, name }) => {
+    const [open, setOpen] = useState(false);
+    const [updateModal, setUpdateModal] = useState([]);
+
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
 
   const deleteMatter = async id => {
     const response = await fetch(
@@ -35,11 +41,12 @@ export const Items = ({ id, name }) => {
           <Grid container>
             <ListItemText primary={name} />
             <DeleteIcon onClick={() => deleteMatter(id)} />
-            <UpgradeIcon  />
+            <UpgradeIcon  onClick={handleOpen}/>
             {/* <ListItemText secondary={'Lorem insert line Daniel RIVAS 123'}/> */}
           </Grid>
         </ListItemButton>
       </ListItem>
+      <ModalUpdate open={open} handleClose={handleClose} updateModal={updateModal} id={id} name={name}/>
     </>
   );
 };

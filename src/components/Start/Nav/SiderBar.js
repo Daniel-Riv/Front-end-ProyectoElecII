@@ -20,11 +20,6 @@ export const SiderBar = ({drawerWidth=240}) => {
         setMatter(matters);
         
     }
-
- 
-
-
-
     useEffect(() => {
         getMatters();
     }, []);

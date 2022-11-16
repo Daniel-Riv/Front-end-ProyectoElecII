@@ -3,7 +3,7 @@ import { NavbarC } from '../Nav/NavbarC';
 import { SiderBar } from '../Nav/SiderBar';
 
 
-const drawerWidth = 240;
+const drawerWidth = 290;
 
 export const Clayout = ({children}) => {
    
