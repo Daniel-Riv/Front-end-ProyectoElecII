@@ -7,7 +7,7 @@ import {
 } from "@mui/material"
 import { MenuOutlined } from '@mui/icons-material'
 
-export const NavbarC = ({ drawerWidth }) => {
+export const NavbarC = ({ drawerWidth, matters, getMatters }) => {
     return (
         <AppBar
             position="fixed"

@@ -14,8 +14,8 @@ const actions = [
   { icon: <SaveIcon />, name: 'Agregar' },
   { icon: <PrintIcon />, name: 'Ver' },
 ];
-export const Icon = () => {
-  
+export const Icon = ({ getMatters }) => {
+
   const [open, setOpen] = useState(false);
   const [openModal, setOpenModal] = useState(false);
 
@@ -66,6 +66,7 @@ export const Icon = () => {
         value={addMmodal.action}
         handleCloseModal={handleCloseModal}
         addMmodal={addMmodal}
+        getMatters={getMatters}
       />
     </>
   );
