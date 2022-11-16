@@ -9,7 +9,7 @@ import { SiderBar } from '../Nav/SiderBar';
 
 const drawerWidth = 300;
 
-export const Clayout = ({ children, matters, getMatters }) => {
+export const Clayout = ({ children, matters, getMatters, setId }) => {
 
   return (
     <Box>
@@ -22,6 +22,7 @@ export const Clayout = ({ children, matters, getMatters }) => {
         drawerWidth={drawerWidth}
         matters={matters}
         getMatters={getMatters}
+        setId={setId}
       />
       <Box component='main' sx={{ flexGrow: 1, p: 3 }}>
         <Toolbar />

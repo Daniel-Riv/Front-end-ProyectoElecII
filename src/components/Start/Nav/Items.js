@@ -13,7 +13,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import UpgradeIcon from '@mui/icons-material/Upgrade';
 import { ModalUpdate } from '../../Matters/ModalUpdate';
 
-export const Items = ({ id, name, getMatters, setCustomAlert }) => {
+export const Items = ({ id, name, getMatters, setCustomAlert, setId }) => {
   const [open, setOpen] = useState(false);
   const [updateModal, setUpdateModal] = useState([]);
 
@@ -46,7 +46,9 @@ export const Items = ({ id, name, getMatters, setCustomAlert }) => {
   return (
     <>
       <ListItem disablePadding>
-        <ListItemButton>
+        <ListItemButton onClick={() => {
+          setId(id);
+        }}>
           <ListItemIcon>
             <BookIcon />
           </ListItemIcon>

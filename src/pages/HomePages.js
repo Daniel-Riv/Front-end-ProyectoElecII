@@ -8,6 +8,12 @@ import { StartA } from '../components/Activity/StartA';
 export const HomePages = () => {
 
   const [matters, setMatter] = useState([]);
+  const [activities, setActivities] = useState([]);
+  const [id, setId] = useState('');
+
+  const setIdMethod = (id) => {
+    setId(id);
+  };
 
   const getMatters = async () => {
     try {
@@ -20,16 +26,38 @@ export const HomePages = () => {
     }
   };
 
+  const getActivities = async () => {
+    try {
+      const response = await fetch(`http://localhost:5000/api/matter/get/${id}`);
+      const data = await response.json();
+
+      const { matter: { activities } } = data;
+
+      setActivities(activities);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   useEffect(() => {
     getMatters();
   }, []);
+
+  useEffect(() => {
+    if (id !== '') {
+      getActivities();
+    }
+  }, [id])
 
   return (
     <Clayout
       matters={matters}
       getMatters={getMatters}
+      setId={setIdMethod}
     >
-      <StartA />
+      <StartA
+        activities={activities}
+      />
       <Icon
         getMatters={getMatters}
       />
