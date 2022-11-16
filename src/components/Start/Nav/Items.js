@@ -11,14 +11,22 @@ import {
 import BookIcon from '@mui/icons-material/Book';
 import DeleteIcon from '@mui/icons-material/Delete';
 import UpgradeIcon from '@mui/icons-material/Upgrade';
+import AddCircleOutlinedIcon from '@mui/icons-material/AddCircleOutlined';
 import { ModalUpdate } from '../../Matters/ModalUpdate';
+import { ModalAdd } from '../../Activity/Modal/ModalAdd';
 
-export const Items = ({ id, name, getMatters, setCustomAlert, setId }) => {
+export const Items = ({ id, name, getMatters, setCustomAlert, setId,activities,getActivities }) => {
   const [open, setOpen] = useState(false);
   const [updateModal, setUpdateModal] = useState([]);
+  const [openAdd, setOpenAdd] = useState(false);
+  const [addAcModal, setAddAcModal] = useState([]);
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+  const handleOpenAdd = () => setOpenAdd(true);
+  const handleCloseAdd = () => setOpenAdd(false);
+
 
   const deleteMatter = async id => {
     try {
@@ -56,6 +64,7 @@ export const Items = ({ id, name, getMatters, setCustomAlert, setId }) => {
             <ListItemText primary={name} />
             <DeleteIcon onClick={() => deleteMatter(id)} />
             <UpgradeIcon onClick={handleOpen} />
+            <AddCircleOutlinedIcon  onClick={handleOpenAdd}/>
           </Grid>
         </ListItemButton>
       </ListItem>
@@ -67,6 +76,14 @@ export const Items = ({ id, name, getMatters, setCustomAlert, setId }) => {
         setCustomAlert={setCustomAlert}
         id={id}
         name={name}
+      />
+      <ModalAdd 
+      open={openAdd}
+      handleClose={handleCloseAdd}
+      addAcModal={addAcModal}
+      getActivities={getActivities}
+      setCustomAlert={setCustomAlert}
+      id={id}
       />
     </>
   );

@@ -64,8 +64,6 @@ export const ModalAdd = ({ openModal, handleCloseModal, addMmodal, value, getMat
                     value={name}
                     onChange={handleInputChange}
                     fullWidth />
-                  {value === "Añadir" ? "TONTO" : "Sebastisn"}
-                  <h1>{value}</h1>
                 </Grid>
               </Grid>
             </Grid>

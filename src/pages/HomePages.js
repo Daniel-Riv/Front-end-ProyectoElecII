@@ -32,7 +32,7 @@ export const HomePages = () => {
       const data = await response.json();
 
       const { matter: { activities } } = data;
-
+      console.log(activities);
       setActivities(activities);
     } catch (error) {
       console.log(error);
@@ -52,14 +52,16 @@ export const HomePages = () => {
   return (
     <Clayout
       matters={matters}
+      activities={activities}
       getMatters={getMatters}
-      setId={setIdMethod}
+      getActivities={getActivities}
+      setId={setId}
     >
       <StartA
-        activities={activities}
+        activities={activities} getActivities={getActivities}
       />
       <Icon
-        getMatters={getMatters}
+        getMatters={getMatters} 
       />
     </Clayout>
   )

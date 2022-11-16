@@ -12,7 +12,7 @@ import {
 
 import { Items } from "./Items";
 
-export const SiderBar = ({ drawerWidth = 240, matters, getMatters, setId }) => {
+export const SiderBar = ({ drawerWidth = 300, matters, getMatters, setId,getActivities,activities }) => {
 
     const [customAlert, setCustomAlert] = useState({
         type: null,
@@ -48,7 +48,9 @@ export const SiderBar = ({ drawerWidth = 240, matters, getMatters, setId }) => {
                                 setCustomAlert={setCustomAlert}
                                 handleCloseAlert={handleCloseAlert}
                                 setId={setId}
+                                getActivities={getActivities}
                                 {...matter}
+                                {...activities}
                             />
                         ))
                     }
