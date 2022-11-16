@@ -1,38 +1,55 @@
 import { ModalBase } from './ModalBase';
 import {
-    Box,
-    Grid,
-    TextField
-  } from '@mui/material';
+  Box,
+  Grid,
+  TextField
+} from '@mui/material';
 import { useForm } from '../../hook/useForm';
 
 const MainContainer = ({ children }) => <Box>{children}</Box>;
 
-export const ModalUpdate = ({open, handleClose, id:idUpdate,name: nameUpdate}) => {
+export const ModalUpdate = ({ open, handleClose, id: idUpdate, name: nameUpdate, getMatters, setCustomAlert }) => {
 
-    const [formValues, handleInputChange, reset] = useForm({
-        name :nameUpdate,
-        id:idUpdate
-    });
+  const [formValues, handleInputChange, reset] = useForm({
+    name: nameUpdate,
+    id: idUpdate
+  });
 
-    const { id, name } = formValues;
+  const { id, name } = formValues;
 
-    const updateMatter = async(e) => {
-        e.preventDefault();
-        if(name !== ""){
-            const response = await fetch(`http://localhost:5000/api/matter/update/${id}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    name: name,
-                }),
-            });
-            const data = await response.json();
-            console.log(data);
-        }
+  const updateMatter = async (e) => {
+    e.preventDefault();
+    if (name !== "") {
+      try {
+        const response = await fetch(`http://localhost:5000/api/matter/update/${id}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            name: name,
+          }),
+        });
+        const data = await response.json();
+
+        setCustomAlert({
+          type: 'success',
+          message: 'Materia actualizada correctamente',
+        });
+
+        getMatters();
+        reset();
+        handleClose();
+
+      } catch (error) {
+        console.log(error);
+        setCustomAlert({
+          type: 'error',
+          message: 'Error en el servidor',
+        });
+      }
     }
+  }
 
   return (
     <>
@@ -45,7 +62,7 @@ export const ModalUpdate = ({open, handleClose, id:idUpdate,name: nameUpdate}) =
         actionButton2={updateMatter}
         typeModal={1}
         onClose={() => {
-            handleClose();
+          handleClose();
         }}
       >
         <MainContainer>
@@ -58,11 +75,11 @@ export const ModalUpdate = ({open, handleClose, id:idUpdate,name: nameUpdate}) =
               >
                 <Grid item xs={12} md={12}>
                   <TextField label='Nombre de la materia'
-                  variant='outlined'
+                    variant='outlined'
                     name='name'
                     value={name}
                     onChange={handleInputChange}
-                  fullWidth />
+                    fullWidth />
                 </Grid>
               </Grid>
             </Grid>

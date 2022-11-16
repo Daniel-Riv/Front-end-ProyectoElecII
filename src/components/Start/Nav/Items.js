@@ -14,11 +14,11 @@ import UpgradeIcon from '@mui/icons-material/Upgrade';
 import { ModalUpdate } from '../../Matters/ModalUpdate';
 
 export const Items = ({ id, name, getMatters, setCustomAlert }) => {
-    const [open, setOpen] = useState(false);
-    const [updateModal, setUpdateModal] = useState([]);
+  const [open, setOpen] = useState(false);
+  const [updateModal, setUpdateModal] = useState([]);
 
-    const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   const deleteMatter = async id => {
     try {
@@ -53,12 +53,20 @@ export const Items = ({ id, name, getMatters, setCustomAlert }) => {
           <Grid container>
             <ListItemText primary={name} />
             <DeleteIcon onClick={() => deleteMatter(id)} />
-            <UpgradeIcon  onClick={handleOpen}/>
+            <UpgradeIcon onClick={handleOpen} />
             {/* <ListItemText secondary={'Lorem insert line Daniel RIVAS 123'}/> */}
           </Grid>
         </ListItemButton>
       </ListItem>
-      <ModalUpdate open={open} handleClose={handleClose} updateModal={updateModal} id={id} name={name}/>
+      <ModalUpdate
+        open={open}
+        handleClose={handleClose}
+        updateModal={updateModal}
+        getMatters={getMatters}
+        setCustomAlert={setCustomAlert}
+        id={id}
+        name={name}
+      />
     </>
   );
 };

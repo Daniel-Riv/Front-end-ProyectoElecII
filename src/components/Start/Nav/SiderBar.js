@@ -6,31 +6,20 @@ import {
     List,
     Toolbar,
     Typography,
-    Snackbar
+    Snackbar,
+    Alert
 } from "@mui/material"
 
 import { Items } from "./Items";
 
-export const SiderBar = ({ drawerWidth = 240 }) => {
+export const SiderBar = ({ drawerWidth = 240, matters, getMatters }) => {
 
-    const [matters, setMatter] = useState([]);
     const [customAlert, setCustomAlert] = useState({
         type: null,
         message: null,
     });
 
     const handleCloseAlert = () => setCustomAlert({ type: null, message: null });
-
-    const getMatters = async () => {
-        const response = await fetch('http://localhost:5000/api/matter/get');
-        const data = await response.json();
-        const { matters } = data;
-        console.log(matters);
-        setMatter(matters);
-    }
-    useEffect(() => {
-        getMatters();
-    }, []);
 
     return (
         <Box component='nav'

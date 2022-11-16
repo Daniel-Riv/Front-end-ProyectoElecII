@@ -9,16 +9,15 @@ import { useForm } from '../../hook/useForm';
 
 const MainContainer = ({ children }) => <Box>{children}</Box>;
 
-export const ModalAdd = ({ openModal, handleCloseModal, addMmodal, value }) => {
- 
+export const ModalAdd = ({ openModal, handleCloseModal, addMmodal, value, getMatters }) => {
+
   const [formValues, handleInputChange, reset] = useForm({
-    name:'',
-});
+    name: '',
+  });
 
   const { name } = formValues;
 
-
-  const addMatter = async(e) => {
+  const addMatter = async (e) => {
     e.preventDefault();
     const response = await fetch('http://localhost:5000/api/matter/create', {
       method: 'POST',
@@ -30,7 +29,9 @@ export const ModalAdd = ({ openModal, handleCloseModal, addMmodal, value }) => {
       }),
     });
     const data = await response.json();
-    console.log(data);
+    getMatters();
+    reset();
+    handleCloseModal();
   }
 
   return (
@@ -58,12 +59,12 @@ export const ModalAdd = ({ openModal, handleCloseModal, addMmodal, value }) => {
               >
                 <Grid item xs={12} md={12}>
                   <TextField label='Nombre de la materia'
-                  variant='outlined'
-                  name='name' 
-                  value={name}
-                  onChange={handleInputChange} 
-                  fullWidth />
-                  {value === "Añadir"? "TONTO": "Sebastisn"}
+                    variant='outlined'
+                    name='name'
+                    value={name}
+                    onChange={handleInputChange}
+                    fullWidth />
+                  {value === "Añadir" ? "TONTO" : "Sebastisn"}
                   <h1>{value}</h1>
                 </Grid>
               </Grid>
