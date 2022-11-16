@@ -5,13 +5,15 @@ import {
   ListItemButton,
   ListItemIcon,
   ListItemText,
+  Snackbar,
 } from '@mui/material';
+
 import BookIcon from '@mui/icons-material/Book';
 import DeleteIcon from '@mui/icons-material/Delete';
 import UpgradeIcon from '@mui/icons-material/Upgrade';
 import { ModalUpdate } from '../../Matters/ModalUpdate';
 
-export const Items = ({ id, name }) => {
+export const Items = ({ id, name, getMatters, setCustomAlert }) => {
     const [open, setOpen] = useState(false);
     const [updateModal, setUpdateModal] = useState([]);
 
@@ -19,16 +21,26 @@ export const Items = ({ id, name }) => {
     const handleClose = () => setOpen(false);
 
   const deleteMatter = async id => {
-    const response = await fetch(
-      `http://localhost:5000/api/matter/delete/${id}`,
-      {
+    try {
+      const response = await fetch(`http://localhost:5000/api/matter/delete/${id}`, {
         method: 'DELETE',
-      }
-    );
-    const data = await response.json();
-    setTimeout(() => {
-      window.location.reload();
-    }, 1000);
+      });
+
+      const data = await response.json();
+
+      setCustomAlert({
+        type: 'success',
+        message: "Materia eliminada correctamente",
+      });
+
+      getMatters();
+    } catch (error) {
+      console.log(error);
+      setCustomAlert({
+        type: 'error',
+        message: 'Error en el servidor',
+      });
+    }
   };
 
   return (
