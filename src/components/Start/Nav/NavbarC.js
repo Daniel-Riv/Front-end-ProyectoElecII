@@ -1,24 +1,45 @@
-import { AppBar, Grid, IconButton, Toolbar, Typography } from "@mui/material"
-import {MenuOutlined,LogoutOutlined} from '@mui/icons-material'
+import {
+    AppBar,
+    Grid,
+    IconButton,
+    Toolbar,
+    Typography
+} from "@mui/material"
+import { MenuOutlined } from '@mui/icons-material'
 
-export const NavbarC = ({drawerWidth}) => {
-    console.log(drawerWidth)
-  return (
-    <AppBar position="fixed"
-    sx={{
-        width:{sm:`calc(100% - ${drawerWidth}px)`},
-        ml:{sm:`${drawerWidth}px`}
-    }}>
-        <Toolbar>
-            <IconButton color='inherit' edge='start' sx={{mr:2,display:{sm:'none'}}}>
-                <MenuOutlined/>
-            </IconButton>
+export const NavbarC = ({ drawerWidth }) => {
+    return (
+        <AppBar
+            position="fixed"
+            sx={{
+                width: { sm: `calc(100% - ${drawerWidth}px)` },
+                ml: { sm: `${drawerWidth}px` }
+            }}
+        >
+            <Toolbar>
+                <IconButton
+                    color='inherit'
+                    edge='start'
+                    sx={{
+                        mr: 2,
+                        display: {
+                            sm: 'none'
+                        }
+                    }}
+                >
+                    <MenuOutlined />
+                </IconButton>
 
-            <Grid container direction='row' justifyContent='space-between' alignItems='center'>
-                <Typography variant="h6" noWrap component='div'>Activdades</Typography>
-            </Grid>
+                <Grid
+                    container
+                    direction='row'
+                    justifyContent='space-between'
+                    alignItems='center'
+                >
+                    <Typography variant="h6" noWrap component='div'>Actividades</Typography>
+                </Grid>
 
-        </Toolbar>
-    </AppBar>
-  )
+            </Toolbar>
+        </AppBar>
+    )
 }

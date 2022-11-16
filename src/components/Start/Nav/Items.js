@@ -5,24 +5,36 @@ import {
   ListItemButton,
   ListItemIcon,
   ListItemText,
+  Snackbar,
 } from '@mui/material';
+
 import BookIcon from '@mui/icons-material/Book';
 import DeleteIcon from '@mui/icons-material/Delete';
 import UpgradeIcon from '@mui/icons-material/Upgrade';
 
-export const Items = ({ id, name }) => {
+export const Items = ({ id, name, getMatters, setCustomAlert }) => {
 
   const deleteMatter = async id => {
-    const response = await fetch(
-      `http://localhost:5000/api/matter/delete/${id}`,
-      {
+    try {
+      const response = await fetch(`http://localhost:5000/api/matter/delete/${id}`, {
         method: 'DELETE',
-      }
-    );
-    const data = await response.json();
-    setTimeout(() => {
-      window.location.reload();
-    }, 1000);
+      });
+
+      const data = await response.json();
+
+      setCustomAlert({
+        type: 'success',
+        message: "Materia eliminada correctamente",
+      });
+
+      getMatters();
+    } catch (error) {
+      console.log(error);
+      setCustomAlert({
+        type: 'error',
+        message: 'Error en el servidor',
+      });
+    }
   };
 
   return (
@@ -35,7 +47,7 @@ export const Items = ({ id, name }) => {
           <Grid container>
             <ListItemText primary={name} />
             <DeleteIcon onClick={() => deleteMatter(id)} />
-            <UpgradeIcon  />
+            <UpgradeIcon />
             {/* <ListItemText secondary={'Lorem insert line Daniel RIVAS 123'}/> */}
           </Grid>
         </ListItemButton>

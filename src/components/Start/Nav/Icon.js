@@ -15,6 +15,7 @@ const actions = [
   { icon: <PrintIcon />, name: 'Ver' },
 ];
 export const Icon = () => {
+  
   const [open, setOpen] = useState(false);
   const [openModal, setOpenModal] = useState(false);
 
@@ -27,12 +28,12 @@ export const Icon = () => {
   const handleClose = () => setOpen(false);
 
   const handleOpenModal = (value) => {
-    console.log("estoy en el icon"+value);
     setAddModal({
       open: true,
       action: value,
     });
   };
+
   const handleCloseModal = () => setAddModal(false);
 
   return (
