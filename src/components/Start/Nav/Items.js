@@ -94,6 +94,7 @@ export const Items = ({ id, name, getMatters, setCustomAlert, setId,activities,g
       addAcModal={addAcModal}
       getActivities={getActivities}
       setCustomAlert={setCustomAlert}
+      getPartial={getPartial}
       id={id}
       />
       <ModalGrade

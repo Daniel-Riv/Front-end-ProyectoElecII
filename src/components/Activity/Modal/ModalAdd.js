@@ -16,6 +16,7 @@ export const ModalAdd = ({
   id: idAdd,
   setCustomAlert,
   getActivities,
+  getPartial,
 }) => {
 
 
@@ -64,6 +65,7 @@ export const ModalAdd = ({
         const data = await response.json();
 
         getActivities();
+        getPartial();
         reset();
         handleClose();
       } catch (error) {
