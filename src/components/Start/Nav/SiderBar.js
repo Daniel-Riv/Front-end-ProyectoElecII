@@ -12,7 +12,8 @@ import {
 
 import { Items } from "./Items";
 
-export const SiderBar = ({ drawerWidth = 300, matters, getMatters, setId,getActivities,activities }) => {
+export const SiderBar = ({ drawerWidth = 300, matters, getMatters, setId,getActivities,activities,grade,getPartial }) => {
+
 
     const [customAlert, setCustomAlert] = useState({
         type: null,
@@ -49,6 +50,8 @@ export const SiderBar = ({ drawerWidth = 300, matters, getMatters, setId,getActi
                                 handleCloseAlert={handleCloseAlert}
                                 setId={setId}
                                 getActivities={getActivities}
+                                gradePartial={grade}
+                                getPartial={getPartial}
                                 {...matter}
                                 {...activities}
                             />

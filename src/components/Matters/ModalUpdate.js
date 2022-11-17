@@ -8,7 +8,7 @@ import { useForm } from '../../hook/useForm';
 
 const MainContainer = ({ children }) => <Box>{children}</Box>;
 
-export const ModalUpdate = ({ open, handleClose, id: idUpdate, name: nameUpdate, getMatters, setCustomAlert }) => {
+export const ModalUpdate = ({ open, handleClose, id: idUpdate, name: nameUpdate, getMatters, setCustomAlert,getPartial }) => {
 
   const [formValues, handleInputChange, reset] = useForm({
     name: nameUpdate,
@@ -21,7 +21,7 @@ export const ModalUpdate = ({ open, handleClose, id: idUpdate, name: nameUpdate,
     e.preventDefault();
     if (name !== "") {
       try {
-        const response = await fetch(`http://localhost:5000/api/matter/update/${id}`, {
+        const response = await fetch(`https://api-proyect-electivaii.herokuapp.com/api/matter/update/${id}`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
@@ -38,6 +38,7 @@ export const ModalUpdate = ({ open, handleClose, id: idUpdate, name: nameUpdate,
         });
 
         getMatters();
+        getPartial();
         reset();
         handleClose();
 
@@ -54,11 +55,11 @@ export const ModalUpdate = ({ open, handleClose, id: idUpdate, name: nameUpdate,
   return (
     <>
       <ModalBase
-        titleText='Actualizar'
-        subTitleText='Nombre de la materia'
+        titleText='Actualizar materia'
+        subTitleText={`Actualizar ${name}`}
         isOpen={open}
         buttonText1='Cancelar'
-        buttonText2='Agregar'
+        buttonText2='Actualizar'
         actionButton2={updateMatter}
         typeModal={1}
         onClose={() => {

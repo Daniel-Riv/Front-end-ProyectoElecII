@@ -115,11 +115,14 @@ export const ModalBase = ({
             >
               {buttonText1 || "Ingrese un texto"}
             </Button>
-            <Button size="small" variant="contained" color="primary"
-              onClick={actionButton2 }
-            >
-              {buttonText2 || "Ingrese un texto"}
-            </Button>
+            {
+                buttonText2 !==''  &&   <Button size="small" variant="contained" color="primary"
+                 onClick={actionButton2 }
+               >
+                 {buttonText2 || "Ingrese un texto"}
+               </Button>
+            }
+         
           </Box>
         </Grid>
       </ModalFrame>

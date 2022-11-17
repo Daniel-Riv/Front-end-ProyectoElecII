@@ -9,7 +9,8 @@ import { SiderBar } from '../Nav/SiderBar';
 
 const drawerWidth = 300;
 
-export const Clayout = ({ children, matters, getMatters, setId,getActivities,activities }) => {
+export const Clayout = ({ children, matters, getMatters, setId,getActivities,activities,grade,getPartial}) => {
+
 
   return (
     <Box>
@@ -25,6 +26,8 @@ export const Clayout = ({ children, matters, getMatters, setId,getActivities,act
         getMatters={getMatters}
         getActivities={getActivities}
         setId={setId}
+        grade={grade}
+        getPartial={getPartial}
       />
       <Box component='main'   sx={{width:{sm:`calc(100% - ${drawerWidth}px)`},
                                           ml:{sm:`${drawerWidth}px`},

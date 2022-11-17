@@ -11,10 +11,14 @@ import { red } from '@mui/material/colors';
 import DeleteForeverSharpIcon from '@mui/icons-material/DeleteForeverSharp';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { useState } from 'react';
-import { Divider, ListItemIcon } from '@mui/material';
+import EventBusyIcon from '@mui/icons-material/EventBusy';
+import { useEffect, useState } from 'react';
+import {  Button, Divider, ListItemIcon } from '@mui/material';
 import EventIcon from '@mui/icons-material/Event';
 import { ModalUpdate } from './Modal/ModalUpdate';
+import { PopperA } from './Popper/PopperA';
+import dayjs from 'dayjs';
+import 'dayjs/locale/es';
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -27,12 +31,21 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-export const ItemActivity = ({id,dateEnd,dateStart,description,gradeActivity,name,getActivities,setCustomAlert}) => {
+export const ItemActivity = ({id,dateEnd,dateStart,description,gradeActivity,name,getActivities,setCustomAlert,getPartial}) => {
 
     const [expanded, setExpanded] = useState(false);
     const [open, setOpen] = useState(false);
     const [updateModal, setUpdateModal] = useState([]);
 
+    const [anchorEl, setAnchorEl] = useState(null);
+    const [popover, setPopover] = useState([]);
+
+    const handleClick = (event) => {
+      setAnchorEl(anchorEl ? null : event.currentTarget);
+    };
+
+    const openP = Boolean(anchorEl);
+    const idP = openP ? 'simple-popper' : undefined;
 
     const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -43,7 +56,7 @@ export const ItemActivity = ({id,dateEnd,dateStart,description,gradeActivity,nam
 
     const handleDelete = async() => {
         try {
-            const response = await fetch(`http://localhost:5000/api/activity/delete/${id}`, {
+            const response = await fetch(`https://api-proyect-electivaii.herokuapp.com/api/activity/delete/${id}`, {
                 method: 'DELETE',
             });
             const data = await response.json();
@@ -65,6 +78,21 @@ export const ItemActivity = ({id,dateEnd,dateStart,description,gradeActivity,nam
 
     }
 
+    const getAlert = async () => {
+        try {
+            const response = await fetch(`https://api-proyect-electivaii.herokuapp.com/api/activity/date/${id}`);
+            const data = await response.json();
+            setPopover(data);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    useEffect(() => {
+        if (id) {
+            getAlert();
+        }
+    }, [id])
 
   return (
 
@@ -77,7 +105,7 @@ export const ItemActivity = ({id,dateEnd,dateStart,description,gradeActivity,nam
           </Avatar>
         }
         title={name}
-        subheader={`La fecha de creacion de la actividad es:  ${dateStart}`}
+        subheader={`La fecha de creacion de la actividad es:  ${dayjs(dateStart).format('DD/MM/YYYY')}`}
       />
       <CardContent>
         <Typography>
@@ -97,7 +125,7 @@ export const ItemActivity = ({id,dateEnd,dateStart,description,gradeActivity,nam
             h:ss
         </Typography>
         <Typography sx={{m:2, fontWeight: 'bold'}}>
-            {dateStart}
+            {dayjs(dateStart).format('YYYY-MM-DD')}
         </Typography >
         </ListItemIcon>
         
@@ -112,7 +140,7 @@ export const ItemActivity = ({id,dateEnd,dateStart,description,gradeActivity,nam
             h:ss
         </Typography>
         <Typography sx={{m:2, fontWeight: 'bold'}}>
-            {dateEnd}
+            {dayjs(dateEnd).format('YYYY/MM/DD')}
         </Typography >
         </ListItemIcon>
 
@@ -124,6 +152,9 @@ export const ItemActivity = ({id,dateEnd,dateStart,description,gradeActivity,nam
         <IconButton aria-label="update">
           <EditOutlinedIcon onClick={handleOpen}/>
         </IconButton>
+        <IconButton>
+            <EventBusyIcon color='error'  onClick={handleClick}/>
+        </IconButton>
         <ExpandMore
           expand={expanded}
           onClick={handleExpandClick}
@@ -134,6 +165,11 @@ export const ItemActivity = ({id,dateEnd,dateStart,description,gradeActivity,nam
         </ExpandMore>
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
+        <CardContent>
+            <Typography paragraph textAlign='center'>
+                Nota: <strong> { gradeActivity }</strong>
+            </Typography>
+        </CardContent>
       </Collapse>
     </Card>
     <ModalUpdate 
@@ -148,7 +184,9 @@ export const ItemActivity = ({id,dateEnd,dateStart,description,gradeActivity,nam
     description={description}
     gradeActivity={gradeActivity}
     name={name}
+    getPartial={getPartial}
     />
+    <PopperA idP={idP} id={id} openP={openP} anchorEl={anchorEl} popover={popover}/>
     </>
     
   )

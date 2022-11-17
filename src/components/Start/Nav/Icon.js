@@ -12,7 +12,6 @@ import { ModalAdd } from '../../Matters/ModalAdd';
 
 const actions = [
   { icon: <SaveIcon />, name: 'Agregar' },
-  { icon: <PrintIcon />, name: 'Ver' },
 ];
 export const Icon = ({ getMatters }) => {
 

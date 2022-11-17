@@ -19,7 +19,7 @@ export const ModalAdd = ({ openModal, handleCloseModal, addMmodal, value, getMat
 
   const addMatter = async (e) => {
     e.preventDefault();
-    const response = await fetch('http://localhost:5000/api/matter/create', {
+    const response = await fetch('https://api-proyect-electivaii.herokuapp.com/api/matter/create', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

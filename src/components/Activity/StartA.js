@@ -6,8 +6,7 @@ import {
 import { useState } from "react";
 import { ItemActivity } from "./ItemActivity";
 
-export const StartA = ({ activities,getActivities }) => {
-  console.log(activities);
+export const StartA = ({ activities,getActivities,getPartial }) => {
 
   const [customAlert, setCustomAlert] = useState({
     type: null,
@@ -28,7 +27,7 @@ const handleCloseAlert = () => setCustomAlert({ type: null, message: null });
         {
           activities.map((activity) => (
             <ItemActivity  key={activity._id} id={activity._id} getActivities={getActivities} setCustomAlert={setCustomAlert}
-            handleCloseAlert={handleCloseAlert} {...activity} />
+            handleCloseAlert={handleCloseAlert} getPartial={getPartial} {...activity} />
           ))
         }
       </Grid>

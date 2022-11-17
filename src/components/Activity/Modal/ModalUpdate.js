@@ -21,9 +21,11 @@ export const ModalUpdate = ({
   name: named,
   getActivities,
   setCustomAlert,
+  getPartial
 }) => {
-  const [dateStartState, setDateStartState] = useState('');
-  const [dateEndState, setDateEndState] = useState('');
+  const [dateStartState, setDateStartState] = useState(start);
+  const [dateEndState, setDateEndState] = useState(end);
+
 
   const actionDateStart = dateStart => {
     setDateStartState(dateStart);
@@ -50,12 +52,14 @@ export const ModalUpdate = ({
       dateEnd !== '' &&
       dateStart !== '' &&
       description !== '' &&
-      gradeActivity !== '' &&
+      gradeActivity !== '' && 
+      gradeActivity <= 5 && 
+      gradeActivity >= 0 &&
       name !== ''
     ) {
       try {
         const response = await fetch(
-          `http://localhost:5000/api/activity/update/${id}`,
+          `https://api-proyect-electivaii.herokuapp.com/api/activity/update/${id}`,
           {
             method: 'PUT',
             headers: {
@@ -71,6 +75,7 @@ export const ModalUpdate = ({
           }
         );
         const data = await response.json();
+        
 
         setCustomAlert({
           type: 'success',
@@ -78,6 +83,7 @@ export const ModalUpdate = ({
         });
 
         getActivities();
+        getPartial();
         reset();
         handleClose();
       } catch (error) {
@@ -87,13 +93,18 @@ export const ModalUpdate = ({
           message: 'Error en el servidor',
         });
       }
+    }else{
+        setCustomAlert({
+            type: 'error',
+            message: 'La nota debe estar entre 0 y 5',
+        });
     }
   };
 
   return (
     <ModalBase
       titleText='Actualizar'
-      subTitleText='Nombre de la Actividad'
+      subTitleText={`Actualizar actividad ${name}`}
       isOpen={open}
       buttonText1='Cancelar'
       buttonText2='Actualizar'
@@ -139,6 +150,7 @@ export const ModalUpdate = ({
                   fullWidth
                   sx={{ m: 1 }}
                 />
+                <Grid sx={{m:1}}>
                 <LocalizationProvider dateAdapter={AdapterDayjs} locale='es'>
                   <DatePicker
                     label='Fecha de inicio'
@@ -175,6 +187,8 @@ export const ModalUpdate = ({
                     )}
                   />
                 </LocalizationProvider>
+                </Grid>
+                
                 {/* <TextField
                   label='Fecha de finalización'
                   variant='outlined'

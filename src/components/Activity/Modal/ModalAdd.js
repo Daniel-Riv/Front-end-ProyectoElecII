@@ -19,8 +19,9 @@ export const ModalAdd = ({
 }) => {
 
 
-  const [dateStartS, setDateStartS] = useState('');
-  const [dateEndS, setDateEndS] = useState('');
+
+  const [dateStartS, setDateStartS] = useState(dayjs());
+  const [dateEndS, setDateEndS] = useState(dayjs());
 
   const actionDateStart = dateStart => {
     setDateStartS(dateStart);
@@ -45,14 +46,14 @@ export const ModalAdd = ({
     if (name !== '' && description !== '' ) {
       try {
         const response = await fetch(
-          `http://localhost:5000/api/activity/createa`,
+          `https://api-proyect-electivaii.herokuapp.com/api/activity/createa`,
           {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-              idAdd: id,
+              idMatter: id,
               name: name,
               description: description,
               dateStart: dateStartS,
@@ -61,7 +62,6 @@ export const ModalAdd = ({
           }
         );
         const data = await response.json();
-        console.log(data);
 
         getActivities();
         reset();
@@ -80,19 +80,12 @@ export const ModalAdd = ({
         severity: 'warning',
       });
     }
-    console.log(dateStartS);
-    console.log(dateEndS);
-    console.log(id);
-    console.log(name);
-    console.log(description);
-
   };
 
   return (
     <>
       <ModalBase
         titleText='Crear Actividad'
-        subTitleText='actividad'
         isOpen={open}
         buttonText1='Cancelar'
         buttonText2='Agregar'
@@ -118,6 +111,7 @@ export const ModalAdd = ({
                     value={name}
                     onChange={handleInputChange}
                     fullWidth
+                    sx={{ m: 1 }}
                   />
                   <TextField
                     label='descripcion de la actividad'
@@ -126,7 +120,9 @@ export const ModalAdd = ({
                     value={description}
                     onChange={handleInputChange}
                     fullWidth
+                    sx={{ m: 1 }}
                   />
+                  <Grid sx={{m:1}}>
                   <LocalizationProvider dateAdapter={AdapterDayjs} locale='es'>
                   <DatePicker
                     label='Fecha de inicio'
@@ -145,7 +141,7 @@ export const ModalAdd = ({
                     )}
                   />
                 </LocalizationProvider>
-                <LocalizationProvider dateAdapter={AdapterDayjs} locale='es'>
+                    <LocalizationProvider dateAdapter={AdapterDayjs} locale='es'>
                   <DatePicker
                     label='Fecha de finalización'
                     variant='outlined'
@@ -157,12 +153,16 @@ export const ModalAdd = ({
                     }
                     onChange={actionDateEnd}
                     fullWidth
-                    sx={{ m: 1 }}
                     renderInput={params => (
                       <TextField name='dateEnd' {...params} />
                     )}
                   />
                 </LocalizationProvider>
+                    
+                  </Grid>
+                    
+                  
+                
                 </Grid>
               </Grid>
             </Grid>
